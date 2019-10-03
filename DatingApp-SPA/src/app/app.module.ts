@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { throwError, Observable } from 'rxjs';
+
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -10,6 +10,7 @@ import { AuthService } from '../_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from 'src/_services/error.intersepter';
+import { NotifyService } from 'src/_services/notify.service';
 
 @NgModule({
    declarations: [
@@ -25,7 +26,8 @@ import { ErrorInterceptorProvider } from 'src/_services/error.intersepter';
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      NotifyService
    ],
    bootstrap: [
       AppComponent
