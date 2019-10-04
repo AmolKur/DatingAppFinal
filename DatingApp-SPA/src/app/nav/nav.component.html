@@ -17,9 +17,9 @@
       <a class="nav-link" href="#" (click)="loggedOut()" >Logout</a>
     </li>
   </ul>
-  <div *ngIf="loggedIn()" class="dropdown">
+  <div *ngIf="loggedIn()" class="dropdown text-light">
     <a class="dropdown-toggle" >
-      Welcome User
+      Welcome {{authService.decodedToken.nameid[1]}}
     </a>
     <div class="dropdown-menu text-light" >
       <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit Profile</a>
