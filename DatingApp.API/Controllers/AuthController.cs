@@ -32,7 +32,7 @@ namespace DatingApp.API.Controllers
             //validatte the request
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+               return BadRequest(ModelState);
             }
 
             userDto.UserName = userDto.UserName?.ToLower();
