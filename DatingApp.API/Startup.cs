@@ -49,7 +49,7 @@ namespace DatingApp.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
             }
             else
             {
