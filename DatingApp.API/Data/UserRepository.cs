@@ -13,22 +13,34 @@ namespace DatingApp.API.Data
             _context = context;
 
         }
+
+        public void Add<T>(T entity) where T : class
+        {
+            _context.Add(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+        }
+
         public async Task<User> GetUserById(int Id)
         {
-            var userToSelect = await _context.Users.FirstOrDefaultAsync(x=>x.Id == Id);
+            var userToSelect = await _context.Users.Include(p=> p.Photos).FirstOrDefaultAsync(x=>x.Id == Id);
             return userToSelect;
 
         }
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.Include(p=> p.Photos).ToListAsync();
             return users;
         }
 
-        public Task<bool> UpdateUser(User userToUpdate)
+        public async Task<bool> SaveAll()
         {
-            throw new System.NotImplementedException();
+            return  await _context.SaveChangesAsync() > 0;
         }
+
     }
 }
