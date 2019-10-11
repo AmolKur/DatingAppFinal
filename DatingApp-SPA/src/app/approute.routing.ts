@@ -6,7 +6,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { AuthGuard, AdminAuthGuard } from './_guards/auth.guard';
 
 export const appRoutes: Routes = [
-  { path: 'userlist', component: UserlistComponent, canActivate: [AdminAuthGuard]},
+ // { path: 'userlist', component: UserlistComponent, canActivate: [AdminAuthGuard]},
   { path: '', component: HomeComponent },
   {
     path: '',
@@ -14,7 +14,8 @@ export const appRoutes: Routes = [
     canActivate : [AuthGuard],
     children: [
       { path: 'matches', component: MatchesComponent },
-      { path: 'messages', component: MessagesComponent }
+      { path: 'messages', component: MessagesComponent },
+      { path: 'userlist', component: UserlistComponent }
     ]
   },
   { path: '**', redirectTo : 'home', pathMatch: 'full' },

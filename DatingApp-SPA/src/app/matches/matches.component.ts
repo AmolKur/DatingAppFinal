@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/_services/user.service';
+import { NotifyService } from 'src/_services/notify.service';
+import { User } from '../_models/User';
+
 
 @Component({
   selector: 'app-matches',
@@ -6,10 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./matches.component.css']
 })
 export class MatchesComponent implements OnInit {
+  users: User[];
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private notofy: NotifyService
+  ) {}
 
   ngOnInit() {
+    this.loadUsers();
   }
 
+  loadUsers() {
+    this.userService.getUsers().subscribe(
+      (users: User[]) => {
+        this.users = users;
+      },
+      error => {
+        this.notofy.error(error);
+      }
+    );
+  }
 }
