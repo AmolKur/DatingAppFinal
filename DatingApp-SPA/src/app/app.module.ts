@@ -13,7 +13,8 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from 'src/_services/error.intersepter';
 import { NotifyService } from 'src/_services/notify.service';
 import { MessagesComponent } from './messages/messages.component';
-import { MatchesComponent } from './matches/matches.component';
+import { MatchesComponent } from './members/matches/matches.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { appRoutes } from './approute.routing';
 
@@ -27,7 +28,8 @@ import { appRoutes } from './approute.routing';
       RegisterComponent,
       MessagesComponent,
       MatchesComponent,
-      UserlistComponent
+      UserlistComponent,
+      MemberCardComponent
    ],
    imports: [
       BrowserModule,

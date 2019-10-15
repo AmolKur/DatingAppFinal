@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { MatchesComponent } from './matches/matches.component';
+import { MatchesComponent } from './members/matches/matches.component';
 import { MessagesComponent } from './messages/messages.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { AuthGuard, AdminAuthGuard } from './_guards/auth.guard';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/_services/user.service';
 import { NotifyService } from 'src/_services/notify.service';
-import { User } from '../_models/User';
+import { User } from '../../_models/User';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class MatchesComponent implements OnInit {
 
   loadUsers() {
     this.userService.getUsers().subscribe(
-      (users: User[]) => {
-        this.users = users;
+      (usersFromService: User[]) => {
+        this.users = usersFromService;
       },
       error => {
         this.notofy.error(error);
