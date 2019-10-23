@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -17,8 +18,12 @@ import { MatchesComponent } from './members/matches/matches.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { appRoutes } from './approute.routing';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 
+export function tokenGetter(){
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -29,14 +34,23 @@ import { appRoutes } from './approute.routing';
       MessagesComponent,
       MatchesComponent,
       UserlistComponent,
-      MemberCardComponent
+      MemberCardComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config:{
+            tokenGetter : tokenGetter,
+            whitelistedDomains :['localhost:5000'] ,
+            blacklistedRoutes : ['localhost:5000/api/auth'] ,
+
+         }
+      })
    ],
    providers: [
       AuthService,
