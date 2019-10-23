@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,6 +20,8 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { UserlistComponent } from './userlist/userlist.component';
 import { appRoutes } from './approute.routing';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MembrDetailResolver } from './_resolver/membr-detail.resolver';
+import { MembrListResolver } from './_resolver/member-list.resolver';
 
 
 export function tokenGetter(){
@@ -42,6 +45,7 @@ export function tokenGetter(){
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
+      NgxGalleryModule,
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
@@ -56,10 +60,14 @@ export function tokenGetter(){
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      NotifyService
+      NotifyService,
+      MembrDetailResolver,
+      MembrListResolver
    ],
    bootstrap: [
       AppComponent
    ]
 })
 export class AppModule { }
+
+
