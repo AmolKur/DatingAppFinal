@@ -26,6 +26,7 @@ export class MemberEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {this.user = data['user'];
+    
     });
   }
 
@@ -33,9 +34,10 @@ export class MemberEditComponent implements OnInit {
 
     this.userService.updateUser(this.user.id, this.user).subscribe(data => {
       this.notify.success('Changes saved successfully.');
+      console.log(this.user);
       this.editForm.reset(this.user);
     },
-      error => {
+    error => {
         this.notify.error(error);
       });
   }
