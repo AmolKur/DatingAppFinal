@@ -22,6 +22,10 @@ import { appRoutes } from './approute.routing';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MembrDetailResolver } from './_resolver/membr-detail.resolver';
 import { MembrListResolver } from './_resolver/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MembrEditResolver } from './_resolver/membr-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 export function tokenGetter(){
@@ -38,7 +42,8 @@ export function tokenGetter(){
       MatchesComponent,
       UserlistComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
    imports: [
       BrowserModule,
@@ -62,7 +67,10 @@ export function tokenGetter(){
       ErrorInterceptorProvider,
       NotifyService,
       MembrDetailResolver,
-      MembrListResolver
+      MembrListResolver,
+      MembrEditResolver,
+      AuthGuard,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent

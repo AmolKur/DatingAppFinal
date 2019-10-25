@@ -7,6 +7,9 @@ import { AuthGuard, AdminAuthGuard } from './_guards/auth.guard';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MembrDetailResolver } from './_resolver/membr-detail.resolver';
 import { MembrListResolver } from './_resolver/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MembrEditResolver } from './_resolver/membr-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes = [
  // { path: 'userlist', component: UserlistComponent, canActivate: [AdminAuthGuard]},
@@ -21,7 +24,10 @@ export const appRoutes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'userlist', component: UserlistComponent },
       { path: 'userdetail/:id', component: MemberDetailComponent,
-              resolve:{user: MembrDetailResolver} }
+              resolve:{user: MembrDetailResolver} },
+      { path: 'member/edit', component: MemberEditComponent,
+              resolve:{user:MembrEditResolver},
+              canDeactivate:[PreventUnsavedChanges]}
     ]
   },
   { path: '**', redirectTo : 'home', pathMatch: 'full' },

@@ -1,3 +1,5 @@
+using System;
+using System.Reflection.Metadata;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -5,6 +7,7 @@ using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DatingApp.API.Controllers
 {
@@ -40,5 +43,20 @@ namespace DatingApp.API.Controllers
             return Ok(userDetailDtoObj);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id,UserEditDto userForEdit)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+            var user = await _userRepo.GetUserById(id);
+            var userDetailDtoObj = _mapper.Map(userForEdit,user);
+            if (await _userRepo.SaveAll())
+            {
+                return NoContent();
+            }
+            throw new Exception($"Error with updating user with {id}");
+        }
     }
 }
