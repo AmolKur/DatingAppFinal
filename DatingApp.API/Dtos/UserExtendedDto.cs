@@ -27,16 +27,7 @@ namespace DatingApp.API.Dtos
         public ICollection<PhotosForDetailDto> Photos {get; set;}
     }
 
-    public class PhotosForDetailDto{
-        public int Id { get; set; }
-        public string Url { get; set; }
-        public string Description { get; set; }
-        public DateTime DateAdded { get; set; }
-        public bool IsMain { get; set; }
-        public int UserId { get; set; }
-    }
-
-    public class UserEditDto{
+       public class UserEditDto{
         public string Introduction { get; set; }
         public string LookingFor { get; set; }
         public string Interestes { get; set; }
