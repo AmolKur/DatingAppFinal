@@ -25,20 +25,20 @@ export class MemberEditComponent implements OnInit {
              private userService: UserService) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {this.user = data['user'];
-    
-    });
+    this.route.data.subscribe(data => {this.user = data['user']; });
   }
 
   updateUser() {
-
     this.userService.updateUser(this.user.id, this.user).subscribe(data => {
       this.notify.success('Changes saved successfully.');
       console.log(this.user);
       this.editForm.reset(this.user);
-    },
-    error => {
+    }, error => {
         this.notify.error(error);
       });
+  }
+
+  updateMainPhoto(photourl: string){
+    this.user.mainPhotoUrl = photourl;
   }
 }
