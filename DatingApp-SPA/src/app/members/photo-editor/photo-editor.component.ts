@@ -72,13 +72,20 @@ export class PhotoEditorComponent implements OnInit {
       });
   }
 
-  public deletePhoto(photo: Photo){
-    this.userService.deletePhoto(this.authservice.decodedToken.nameid[0], photo.id).subscribe(data => {
+  public deletePhoto(photoId: number){
+
+    this.notify.confirm('Are you sure to delete this photo?', () => {
+      this.userService.deletePhoto(this.authservice.decodedToken.nameid[0], photoId).subscribe(data => {
+        this.photos.splice(this.photos.findIndex(p => p.id === photoId),1);
+        this.notify.success('Photo deleted successfully');
+    }, error => {
+      this.notify.error(error);
+    });
+    /*this.userService.deletePhoto(this.authservice.decodedToken.nameid[0], photo.id).subscribe(data => {
       this.notify.success('Photo deleted successfully');
-      
     }, error => {
         this.notify.error(error);
-      });
+      });*/
+  });
   }
-
 }
