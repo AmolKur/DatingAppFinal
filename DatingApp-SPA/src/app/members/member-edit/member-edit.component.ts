@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/_services/user.service';
 import { error } from 'util';
+import { AuthService } from 'src/_services/auth.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -22,7 +23,7 @@ export class MemberEditComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private notify: NotifyService,
-             private userService: UserService) { }
+             private userService: UserService,private authService: AuthService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {this.user = data['user']; });
@@ -40,5 +41,7 @@ export class MemberEditComponent implements OnInit {
 
   updateMainPhoto(photourl: string){
     this.user.mainPhotoUrl = photourl;
+    this.authService.userOnLogin.mainPhotoUrl = photourl;
+    localStorage.setItem('user', JSON.stringify(this.authService.userOnLogin));
   }
 }
