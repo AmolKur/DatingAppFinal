@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using System.Linq;
 using AutoMapper;
 using DatingApp.API.Data;
@@ -125,6 +126,45 @@ namespace DatingApp.API.Controllers
             }
             return BadRequest("Not able to set the main photo.");
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletPhoto(int userId, int id){
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+            var user = await _repo.GetUserById(userId);
+            if (!user.Photos.Any(x=>x.Id == id))
+            {
+                return Unauthorized();
+            }
+
+            var photoFromRepo = await _repo.GetPhoto(id);
+            if (photoFromRepo.IsMain)
+            {
+                return BadRequest("This is a main photo and cannot be deleted.");
+            }
+            if (photoFromRepo.PublicId != null)
+            {
+                DeletionParams paramsDelete = new DeletionParams(photoFromRepo.PublicId);
+                var deleteResult =  _clourinary.Destroy(paramsDelete);
+                if (deleteResult.Result == "ok")
+                {
+                     _repo.Delete(photoFromRepo);
+                    await  _repo.SaveAll();
+                }else
+                {
+                    return BadRequest("Error while deleting photo");
+                }
+                
+            }else
+            {
+                 _repo.Delete(photoFromRepo);
+                await  _repo.SaveAll();
+            }
+            return Ok();
+        }
+
         
     }
 }

@@ -34,7 +34,7 @@ export class MemberEditComponent implements OnInit {
       this.notify.success('Changes saved successfully.');
       console.log(this.user);
       this.editForm.reset(this.user);
-    }, error => {
+    }, error=> {
         this.notify.error(error);
       });
   }
