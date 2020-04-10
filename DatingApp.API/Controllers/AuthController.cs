@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using DatingApp.API.Models;
 
 namespace DatingApp.API.Controllers
 {
@@ -42,10 +43,12 @@ namespace DatingApp.API.Controllers
             {
                 return BadRequest("UserName already exist");
             }
-            var userToCreate = new Models.User { UserName = userDto.UserName };
+            //var userToCreate = new Models.User { UserName = userDto.UserName };
+            var userToCreate = _imapper.Map<User>(userDto);
             var createdUser = await _repo.Register(userToCreate, userDto.Password);
-
-            return StatusCode(201);
+            var userToReturn = _imapper.Map<UserDetailsDto>(createdUser);
+            
+            return CreatedAtRoute("GetUser",new {Controller="Users",id= createdUser.Id},userToReturn);
         }
 
         [HttpPost("login")]
