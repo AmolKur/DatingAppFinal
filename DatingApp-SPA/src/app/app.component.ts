@@ -21,6 +21,7 @@ export class AppComponent implements OnInit{
   }
   if (userOnLogin) {
     this.authService.userOnLogin = userOnLogin;
+    this.authService.changeMemberPhoto(userOnLogin.mainPhotoUrl);
   }
   }
 }

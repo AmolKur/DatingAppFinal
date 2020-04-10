@@ -9,9 +9,13 @@ import { NotifyService } from 'src/_services/notify.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  photoUrl: string;
+
+
   constructor(public authService: AuthService , private alertService: NotifyService) { }
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl); 
   }
 
   login() {

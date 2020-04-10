@@ -66,7 +66,11 @@ export class PhotoEditorComponent implements OnInit {
       this.currentMainPhoto = this.photos.filter(x => x.isMain === true)[0];
       this.currentMainPhoto.isMain = false;
       photo.isMain = true;
-      this.getMemberPhotoChange.emit(photo.url);
+     // tslint:disable-next-line: comment-format
+     //this.getMemberPhotoChange.emit(photo.url);
+     this.authservice.changeMemberPhoto(photo.url);
+     this.authservice.userOnLogin.mainPhotoUrl = photo.url;
+     localStorage.setItem('user', JSON.stringify(this.authservice.userOnLogin));
     }, error => {
         this.notify.error(error);
       });
