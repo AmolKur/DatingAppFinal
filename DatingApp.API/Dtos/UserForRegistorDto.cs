@@ -21,10 +21,8 @@ namespace DatingApp.API.Dtos
         public string City { get; set; }
         [Required]
         public string Country { get; set; }
-        [Required]
         public DateTime LastActive { get; set; }
-        [Required]
-        public DateTime Created { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Required]
         [StringLength(8,MinimumLength = 6, ErrorMessage = "You must specify the password between 6 to 8")]
@@ -33,7 +31,7 @@ namespace DatingApp.API.Dtos
         public UserForRegistorDto()
         {
             this.LastActive =  DateTime.Now; 
-            this.Created =  DateTime.Now; 
+            this.CreatedOn =  DateTime.Now; 
         }
     }
 }
