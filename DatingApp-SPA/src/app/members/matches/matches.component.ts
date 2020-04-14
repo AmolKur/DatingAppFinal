@@ -14,7 +14,7 @@ import { Pagination, PaginationResult } from 'src/app/_models/Pagination';
 export class MatchesComponent implements OnInit {
   users: User[];
   user: User = JSON.parse(localStorage.getItem('user'));
-  genderList = [{value: 'male', display: 'Males' },{value: 'female', display: 'females' }];
+  genderList = [{value: 'male', display: 'Males' }, {value: 'female', display: 'females' }];
   userParams: any = {};
   pagination: Pagination;
 
@@ -25,6 +25,7 @@ export class MatchesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // tslint:disable-next-line: comment-format
     //this.loadUsers(); added resolver
     this.route.data.subscribe(data => {
       this.users = data['users'].result;
@@ -33,9 +34,10 @@ export class MatchesComponent implements OnInit {
     this.userParams.gender = this.user.gender === 'male' ? 'female' : 'male';
     this.userParams.minAge = 2;
     this.userParams.maxAge = 99;
+    this.userParams.orderBy = 'lastActive';
   }
 
-  resetFilter(){
+  resetFilter() {
     this.userParams.gender = this.user.gender === 'male' ? 'female' : 'male';
     this.userParams.minAge = 2;
     this.userParams.maxAge = 99;
@@ -49,9 +51,9 @@ export class MatchesComponent implements OnInit {
 
   loadUsers() {
     this.userService
-    .getUsers(this.pagination.pageNumber,this.pagination.pageSize,this.userParams)
-    .subscribe( 
-      (res : PaginationResult<User[]>) => {
+    .getUsers(this.pagination.pageNumber, this.pagination.pageSize, this.userParams)
+    .subscribe(
+      (res: PaginationResult<User[]>) => {
         this.users = res.result;
         this.pagination = res.pagination;
       },
